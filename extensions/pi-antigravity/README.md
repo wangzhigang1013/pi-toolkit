@@ -8,9 +8,14 @@
 
 针对在 Pi Web 网页端使用 Antigravity 时的两大痛点，已完成底层适配优化：
 
-### 痛点 1：看不到思考过程（Thinking / Reason）
-- **原理解析**：原版扩展的 `thinkingLevelMap` 仅映射了部分低/中档位，将 `max` 与 `xhigh` 映射为了 `null`。而 Pi Web（及全局思考增强补丁）默认以最高强度 `max` 发送思考请求，导致模型路由被判定为不支持思考，静默降级为 non-thinking 运行时或关闭思考配置。
-- **优化方案**：全量补全标准思考强度映射（`minimal`, `low`, `medium`, `high`, `xhigh`, `max`），确保在 Pi Web 下 Gemini 3.7 Flash、Gemini 3.6 Flash、Claude 4.6 Thinking 等模型能够正常输出打字机式的思考过程折叠块。
+### 痛点 1：看不到思考过程（Thinking / Reasoning 折叠块）
+- **原理解析**：
+  1. 原版扩展中 `generationConfig.thinkingConfig` 缺少了关键参数 **`includeThoughts: true`**。在 Google Gemini API 及 Cloud Code Assist 中，当向模型提供工具函数（Function Calling）时，**若未显式指定 `includeThoughts: true`，云端会自动关闭工具调用前的思考过程输出**！
+  2. 原版仅针对 `gemini-3.7-flash-tiered` 设置了部分配置，对 `gemini-3.6-flash`、`gemini-3.5-flash`、`gemini-3.1-pro`、`claude-opus-4-6`、`claude-sonnet-4-6` 完全遗漏了思考配置。
+  3. `thinkingLevelMap` 原版将 `max` 与 `xhigh` 设为了 `null`，导致在 Pi Web（默认最高思考强度 max）下被识别为不支持思考并静默降级。
+- **优化方案**：
+  - 全量在 `generationConfig.thinkingConfig` 中注入 `includeThoughts: true` 与对应思考级别（`HIGH` / `MEDIUM` / `LOW`）。
+  - 补齐所有标准思考档位映射，确保在工具调用前与最终回复前，均能完整流式渲染思考卡片。
 
 ### 痛点 2：`/antigravity.usage` 弹窗闪退、无法常驻查看
 - **原理解析**：原版扩展仅通过 `ctx.ui.notify`（临时角标 Toast 弹窗）来显示，几秒钟就自动淡出消失，且在 Web 聊天界面中无法留存。
