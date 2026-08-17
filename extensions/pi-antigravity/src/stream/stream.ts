@@ -479,6 +479,7 @@ async function streamResponse(
   const decoder = new TextDecoder();
   let buffer = "";
   let started = false;
+  let textStarted = false;
   let currentBlock: ActiveBlock | null = null;
   let hasContent = false;
   const blocks = output.content;
@@ -513,6 +514,12 @@ async function streamResponse(
 
   const appendThinking = (delta: string, signature?: string) => {
     if (!delta) return;
+    // Once regular answer text has started, never reopen thinking blocks
+    // (which would cause Web UI to treat the prior text as process details and collapse it)
+    if (textStarted) {
+      appendText(delta, signature);
+      return;
+    }
     hasContent = true;
     if (!currentBlock || currentBlock.type !== "thinking") {
       finishCurrent();
@@ -538,6 +545,7 @@ async function streamResponse(
   const appendText = (delta: string, signature?: string) => {
     if (!delta) return;
     hasContent = true;
+    textStarted = true;
     if (!currentBlock || currentBlock.type !== "text") {
       finishCurrent();
       currentBlock = { type: "text", text: "", textSignature: signature };
