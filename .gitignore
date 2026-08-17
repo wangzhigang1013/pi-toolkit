@@ -1,0 +1,25 @@
+# Dependencies & Build
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Sensitive credentials & Keys (CRITICAL)
+auth.json
+*.auth.json
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Pi Session & Logs
+*.session.json
+*.log
+.pi/
+.pi-sessions/
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
