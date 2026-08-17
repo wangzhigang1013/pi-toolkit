@@ -12,11 +12,11 @@
 - **原理解析**：原版扩展的 `thinkingLevelMap` 仅映射了部分低/中档位，将 `max` 与 `xhigh` 映射为了 `null`。而 Pi Web（及全局思考增强补丁）默认以最高强度 `max` 发送思考请求，导致模型路由被判定为不支持思考，静默降级为 non-thinking 运行时或关闭思考配置。
 - **优化方案**：全量补全标准思考强度映射（`minimal`, `low`, `medium`, `high`, `xhigh`, `max`），确保在 Pi Web 下 Gemini 3.7 Flash、Gemini 3.6 Flash、Claude 4.6 Thinking 等模型能够正常输出打字机式的思考过程折叠块。
 
-### 痛点 2：`/antigravity.usage` / `/antigravity.models` 无法正常展示
-- **原理解析**：原版扩展仅通过 `console.log`（输出到服务端控制台）和 `ctx.ui.notify`（临时角标 Toast）展示信息，在 Web 网页界面的主聊天流中无法以图表形式直观呈现。
+### 痛点 2：`/antigravity.usage` 弹窗闪退、无法常驻查看
+- **原理解析**：原版扩展仅通过 `ctx.ui.notify`（临时角标 Toast 弹窗）来显示，几秒钟就自动淡出消失，且在 Web 聊天界面中无法留存。
 - **优化方案**：
-  1. **注册专属工具（Tools）**：新增 `antigravity_usage`、`antigravity_models`、`antigravity_doctor`。在 Pi Web 对话中直接说「帮我查一下 Antigravity 剩余配额」或「列出可用模型」，Agent 将自动调用工具并在聊天流中渲染出格式化的 Markdown 配额表格。
-  2. **升级 Slash 命令**：在 Pi Web 中执行 `/antigravity.usage` 时，自动在输入框上方挂载多行状态卡片（`aboveEditor` Widget），清晰易读。
+  1. **对话直查（永久留存）**：注册了 `antigravity_usage`、`antigravity_models`、`antigravity_doctor` 专属工具。在 Pi Web 对话中直接说「帮我查一下 Antigravity 剩余配额」或「列出可用模型」，Agent 将自动调用工具并在聊天流中输出永久保存的 Markdown 配额表格。
+  2. **升级 Slash 命令（持久居中模态弹窗）**：在 Pi Web 中执行 `/antigravity.usage` 时，改为调用 `ctx.ui.editor` / `confirm` 弹出居中的持久对话框，不会自动消失，用户查看完毕后可手动点击关闭。
 
 ---
 
@@ -84,19 +84,19 @@ pi install npm:pi-antigravity
 
 ---
 
-## 🛠️ 5. 配额查询与操作方式（Web 端最佳体验）
+## 🛠️ 5. 配额查询与操作方式（Web 端体验优化）
 
 在 Pi Web 中，推荐以下两种方式查看配额与模型：
 
 1. **方式 A：自然语言对话（推荐 🌟）**
    - 直接发送：“帮我查一下 Antigravity 当前剩余配额”
    - 直接发送：“Antigravity 有哪些可用模型？”
-   - Agent 会调用内置工具输出完整 Markdown 表格。
+   - Agent 会调用内置工具输出完整 Markdown 表格，永久保留在聊天记录中。
 
 2. **方式 B：斜杠命令（Slash Commands）**
-   - `/antigravity.usage`：在输入框上方弹出配额进度条卡片
-   - `/antigravity.models`：列出所有运行时模型与共享配额百分比
-   - `/antigravity.doctor`：查看连接端点、Project ID 与诊断日志
+   - `/antigravity.usage`：弹出居中的持久对话框，展示完整的配额条与重置时间，手动关闭。
+   - `/antigravity.models`：列出所有运行时模型与共享配额百分比。
+   - `/antigravity.doctor`：查看连接端点、Project ID 与诊断日志。
 
 ---
 
