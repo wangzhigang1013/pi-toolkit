@@ -71,7 +71,7 @@ const ANTIGRAVITY_NO_PREAMBLE_INSTRUCTION =
   'CRITICAL: NEVER output rule checks, formatting guidelines, constraint checklists (e.g. "No emdashes"), or your thinking/personality preambles in the final response. Output only the final response.';
 
 const ANTIGRAVITY_THINKING_LANGUAGE_INSTRUCTION =
-  "Thinking and internal reasoning process must be conducted in Simplified Chinese (请使用简体中文进行内部思考与推理).";
+  "CRITICAL: All internal thinking, reasoning process, and chain-of-thought MUST be conducted in Simplified Chinese (简体中文). 你的内部思考过程必须全部使用中文进行推理，禁止使用英文思考。";
 
 let toolCallCounter = 0;
 
