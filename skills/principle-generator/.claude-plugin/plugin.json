@@ -1,0 +1,12 @@
+{
+  "name": "principle-generator",
+  "description": "从 PRD 或业务需求文档生成算法评测的 Principle 文档，用于分类/判断/标注这类有客观对错的任务的 AI 算法评测。Principle 是算法开发、人工标注、评测三方共用的判定基准。当用户想把 PRD、业务规格、标签体系或需求文档转化为结构化的 Principle 文档时使用本 skill——包括任务定义、正负例边界、用于消歧的对比标签、触发词、典型/争议案例以及输出 schema。同时支持表格对齐格式和 Skill 散文格式。",
+  "version": "1.0.0",
+  "author": {
+    "name": "zhaoxiang6"
+  },
+  "keywords": [
+    "principle-generator"
+  ],
+  "skills": "./"
+}

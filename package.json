@@ -1,22 +1,20 @@
 {
   "name": "pi-toolkit",
-  "version": "0.1.0",
-  "description": "Personal Pi coding agent extensions, skills, and configuration toolkit",
-  "main": "index.js",
-  "type": "module",
+  "version": "1.0.0",
+  "description": "Personal Pi Toolkit & Extensions Monorepo (Sync across work and home machines)",
+  "main": "sync.js",
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "sync": "node sync.js",
+    "update": "git pull && node sync.js",
+    "push": "git add . && git commit -m \"chore: update pi toolkit\" && git push"
   },
   "keywords": [
     "pi",
     "pi-coding-agent",
-    "pi-extension",
-    "pi-toolkit"
+    "extensions",
+    "skills",
+    "dotfiles"
   ],
   "author": "wangzhigang1013",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^22.0.0",
-    "typescript": "^5.4.0"
-  }
+  "license": "MIT"
 }

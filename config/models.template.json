@@ -1,0 +1,76 @@
+{
+  "providers": {
+    "chehejia": {
+      "name": "公司模型池子 (chehejia)",
+      "baseUrl": "https://portal-k8s-prod.ep.chehejia.com/api/copilot/v2/claudecode",
+      "api": "anthropic-messages",
+      "apiKey": "!python {{PI_AGENT_DIR}}/ept-portal-token.py",
+      "authHeader": true,
+      "models": [
+        {
+          "id": "claude-aws-claude-opus-5[1m]",
+          "name": "opus-5[1m] (4.5x, 图片)",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 65536
+        },
+        {
+          "id": "claude-aws-claude-sonnet-5[1m]",
+          "name": "sonnet-5[1m] (2.8x, 图片)",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 65536
+        },
+        {
+          "id": "claude-azure-gpt-5_6-luna",
+          "name": "gpt-5.6-luna (0.5x, 图片)",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 272000,
+          "maxTokens": 65536
+        },
+        {
+          "id": "claude-baidu-deepseek-v4-flash[1m]",
+          "name": "deepseek-v4-flash-baidu[1m] (0.1x)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 65536
+        },
+        {
+          "id": "claude-baidu-deepseek-v4-pro[1m]",
+          "name": "deepseek-v4-pro-baidu[1m] (1.5x)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 65536
+        },
+        {
+          "id": "claude-kivy-glm-5_2[1m]",
+          "name": "glm-5.2[1m] (1.0x, 私有化)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 65536
+        }
+      ]
+    }
+  }
+}

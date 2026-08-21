@@ -1,0 +1,15 @@
+{
+  "name": "pi-discuss-plan",
+  "version": "1.0.0",
+  "description": "方案模式（/plan 讨论式规划）+ 修改模式（/edit 只改不跑）——pi 扩展包",
+  "keywords": ["pi-package", "plan-mode", "edit-mode"],
+  "license": "MIT",
+  "author": "your-team",
+  "pi": {
+    "extensions": ["./extensions"]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  }
+}

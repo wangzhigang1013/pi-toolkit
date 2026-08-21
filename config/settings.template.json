@@ -1,0 +1,17 @@
+{
+  "theme": "dark",
+  "defaultProvider": "antigravity",
+  "defaultModel": "gemini-3.7-flash",
+  "defaultThinkingLevel": "max",
+  "compaction": {
+    "enabled": true,
+    "reserveTokens": 730000
+  },
+  "packages": [
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:pi-web-access",
+    "npm:pi-rtk-optimizer",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:@juicesharp/rpiv-i18n"
+  ]
+}
