@@ -12,6 +12,9 @@
     "npm:pi-web-access",
     "npm:pi-rtk-optimizer",
     "npm:@juicesharp/rpiv-todo",
-    "npm:@juicesharp/rpiv-i18n"
+    "npm:@juicesharp/rpiv-i18n",
+    "npm:pi-feishu-lark",
+    "npm:pi-schedule-prompt",
+    "npm:pi-lark-notify"
   ]
 }
